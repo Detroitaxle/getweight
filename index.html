@@ -3,315 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detroit Axle - Package Weight Calculator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Detroit Axle Weight Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #34495e;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --gray: #95a5a6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border: #dadce0;
+            --accent: #1a73e8;
+            --accent-hover: #1669d6;
+            --success: #34a853;
+            --warning: #f9ab00;
+            --error: #ea4335;
+            --shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
         }
-        
+
+        .dark-mode {
+            --bg-primary: #202124;
+            --bg-secondary: #303134;
+            --bg-card: #303134;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --border: #5f6368;
+            --accent: #8ab4f8;
+            --accent-hover: #a6c5f8;
+            --success: #81c995;
+            --warning: #fdd663;
+            --error: #f28b82;
+            --shadow: 0 1px 2px 0 rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
         }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
         }
-        
+
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--text-primary);
         }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
         }
-        
-        .card-title i {
-            color: var(--secondary);
+
+        .theme-toggle:hover {
+            background-color: var(--bg-secondary);
         }
-        
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
         .input-group {
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
         }
-        
+
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
         }
-        
-        input, textarea, select {
+
+        input, textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border 0.3s;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border 0.2s;
         }
-        
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--secondary);
+
+        input:focus, textarea:focus {
             outline: none;
+            border-color: var(--accent);
         }
-        
+
         textarea {
             min-height: 120px;
             resize: vertical;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
         }
-        
+
         .btn {
-            background: var(--secondary);
+            background-color: var(--accent);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-        
+
         .btn:hover {
-            background: #2980b9;
+            background-color: var(--accent-hover);
         }
-        
-        .btn-danger {
-            background: var(--accent);
+
+        .btn-secondary {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
         }
-        
-        .btn-danger:hover {
-            background: #c0392b;
+
+        .btn-secondary:hover {
+            background-color: var(--border);
         }
-        
-        .btn-success {
-            background: var(--success);
-        }
-        
-        .btn-success:hover {
-            background: #27ae60;
-        }
-        
-        .parts-list {
-            margin-top: 2rem;
-        }
-        
+
         .parts-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 16px;
+            font-size: 14px;
         }
-        
+
         .parts-table th {
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem;
             text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+            color: var(--text-secondary);
         }
-        
+
         .parts-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid #eee;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .parts-table tr:nth-child(even) {
-            background: #f9f9f9;
+
+        .parts-table tr:last-child td {
+            border-bottom: none;
         }
-        
-        .parts-table tr:hover {
-            background: #f1f8ff;
-        }
-        
+
         .exclude-checkbox {
-            transform: scale(1.2);
+            transform: scale(1.1);
             cursor: pointer;
         }
-        
+
         .total-weight {
-            background: var(--success);
+            background-color: var(--success);
             color: white;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-top: 1rem;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 500;
         }
-        
-        .format-example {
-            background: #f8f9fa;
-            border-left: 4px solid var(--secondary);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 5px 5px 0;
+
+        .part-link {
+            color: var(--accent);
+            text-decoration: none;
         }
-        
-        .format-example h4 {
-            margin-bottom: 0.5rem;
-            color: var(--dark);
+
+        .part-link:hover {
+            text-decoration: underline;
         }
-        
-        .format-example pre {
-            background: white;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        
-        .tab-container {
-            display: flex;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            border-bottom: 3px solid var(--secondary);
-            color: var(--secondary);
-            font-weight: 600;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .part-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .part-row input {
-            flex: 1;
-        }
-        
-        .part-row .qty-input {
-            flex: 0 0 80px;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .notification {
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-        
-        .notification.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .notification.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .notification.warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-        
+
         .weight-loading {
             color: var(--warning);
             font-style: italic;
         }
-        
+
         .weight-error {
-            color: var(--accent);
+            color: var(--error);
             font-style: italic;
         }
-        
-        .part-link {
-            color: var(--secondary);
-            text-decoration: none;
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
         }
-        
-        .part-link:hover {
-            text-decoration: underline;
+
+        .tab-container {
+            display: flex;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
         }
-        
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .part-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .part-row input {
+            flex: 1;
+        }
+
+        .part-row .qty-input {
+            flex: 0 0 80px;
+        }
+
+        .notification {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .notification.success {
+            background-color: rgba(52, 168, 83, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(52, 168, 83, 0.2);
+        }
+
+        .notification.error {
+            background-color: rgba(234, 67, 53, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(234, 67, 53, 0.2);
+        }
+
         .scraping-status {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-top: 0.5rem;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        
+
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 2rem;
+                padding: 16px;
             }
             
             .part-row {
@@ -321,57 +315,54 @@
             .part-row .qty-input {
                 flex: 1;
             }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-weight-hanging"></i> Detroit Axle Package Weight Calculator</h1>
-            <p class="subtitle">Calculate shipping weights for parts and kits</p>
+            <h1>Package Weight Calculator</h1>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i> Dark Mode
+            </button>
         </header>
-        
+
         <div class="notification success" id="success-notification">
-            <i class="fas fa-check-circle"></i> <span class="message">Parts added successfully!</span>
+            <span class="message">Parts added successfully!</span>
         </div>
         
         <div class="notification error" id="error-notification">
-            <i class="fas fa-exclamation-circle"></i> <span class="message">Please check your input and try again.</span>
+            <span class="message">Please check your input and try again.</span>
         </div>
-        
-        <div class="notification warning" id="warning-notification">
-            <i class="fas fa-exclamation-triangle"></i> <span class="message">Warning notification</span>
-        </div>
-        
-        <div class="tab-container">
-            <div class="tab active" data-tab="single-parts">Single Parts</div>
-            <div class="tab" data-tab="kit-parts">Kit/SKU</div>
-        </div>
-        
-        <div class="tab-content active" id="single-parts">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-cog"></i> Add Single Parts</h2>
-                <p>Enter individual part numbers with quantities</p>
-                
+
+        <div class="card">
+            <div class="tab-container">
+                <div class="tab active" data-tab="single-parts">Single Parts</div>
+                <div class="tab" data-tab="kit-parts">Kit/SKU</div>
+            </div>
+            
+            <div class="tab-content active" id="single-parts">
+                <div class="card-title">Add Single Parts</div>
                 <div id="single-parts-container">
                     <div class="part-row">
                         <input type="text" class="part-number" placeholder="Part Number (e.g., ES3197)">
                         <input type="number" class="qty-input" placeholder="Qty" value="1" min="1">
-                        <button class="btn btn-danger" onclick="removePartRow(this)"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-secondary" onclick="removePartRow(this)">Remove</button>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
-                    <button class="btn" onclick="addPartRow()"><i class="fas fa-plus"></i> Add Another Part</button>
-                    <button class="btn btn-success" onclick="addSingleParts()"><i class="fas fa-calculator"></i> Calculate Weight</button>
+                    <button class="btn btn-secondary" onclick="addPartRow()">Add Another Part</button>
+                    <button class="btn" onclick="addSingleParts()">Calculate Weight</button>
                 </div>
             </div>
-        </div>
-        
-        <div class="tab-content" id="kit-parts">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-box-open"></i> Add Kit/SKU</h2>
-                <p>Enter kit SKU and components in the specified format</p>
+            
+            <div class="tab-content" id="kit-parts">
+                <div class="card-title">Add Kit/SKU</div>
                 
                 <div class="input-group">
                     <label for="kit-sku">Kit SKU (Optional)</label>
@@ -380,32 +371,20 @@
                 
                 <div class="input-group">
                     <label for="kit-components">Kit Components</label>
-                    <textarea id="kit-components" placeholder="Enter components in the format:
+                    <textarea id="kit-components" placeholder="Enter components in format:
 2	Rear Driver or Passenger Side Wheel Hub and Bearing	512269R-WB
 2	Front Driver or Passenger Side Outer Tie Rod	ES3197
 1	Front Passenger Side Lower Control Arm w/Ball Joint	K620071"></textarea>
                 </div>
                 
-                <div class="format-example">
-                    <h4><i class="fas fa-info-circle"></i> Format Explanation</h4>
-                    <p>Each line should contain:</p>
-                    <ul>
-                        <li><strong>First segment</strong> = Quantity (e.g., "2")</li>
-                        <li><strong>Second segment</strong> = Description</li>
-                        <li><strong>Last segment</strong> = Part number (used to generate links)</li>
-                    </ul>
-                    <p>Separate segments with tabs or spaces.</p>
-                </div>
-                
-                <button class="btn btn-success" onclick="addKitParts()"><i class="fas fa-calculator"></i> Calculate Weight</button>
+                <button class="btn" onclick="addKitParts()">Calculate Weight</button>
             </div>
         </div>
         
-        <div class="card parts-list">
-            <h2 class="card-title"><i class="fas fa-list"></i> Parts List & Weight Calculation</h2>
-            <p>Review parts, exclude items from calculation, and see total weight</p>
-            <div class="scraping-status" id="scraping-status">
-                <i class="fas fa-sync-alt"></i> Weights are fetched live from Detroit Axle
+        <div class="card">
+            <div class="card-title">Parts List & Weight Calculation</div>
+            <div class="scraping-status">
+                <i class="fas fa-info-circle"></i> Weights are fetched live from Detroit Axle
             </div>
             
             <table class="parts-table">
@@ -414,8 +393,8 @@
                         <th width="5%">Include</th>
                         <th width="10%">Qty</th>
                         <th width="25%">Part Number</th>
-                        <th width="40%">Description</th>
-                        <th width="20%">Weight (lbs)</th>
+                        <th width="45%">Description</th>
+                        <th width="15%">Weight (lbs)</th>
                     </tr>
                 </thead>
                 <tbody id="parts-table-body">
@@ -428,25 +407,49 @@
             </div>
             
             <div class="action-buttons">
-                <button class="btn btn-danger" onclick="clearAllParts()"><i class="fas fa-trash"></i> Clear All Parts</button>
-                <button class="btn" onclick="recalculateWeights()"><i class="fas fa-sync-alt"></i> Re-scrape Weights</button>
+                <button class="btn btn-secondary" onclick="clearAllParts()">Clear All Parts</button>
+                <button class="btn" onclick="recalculateWeights()">Re-scrape Weights</button>
             </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script>
         // Scraping configuration
         const SCRAPING_CONFIG = {
-            // Free ScrapingBee API key (you need to sign up at scrapingbee.com)
-            // For demo purposes, we'll use a mock service that simulates scraping
-            apiKey: 'DEMO_KEY', // Replace with your actual API key
-            useMock: true, // Set to false when you have a real API key
+            apiKey: 'HC8F1EBO345JLTW7PW8RJS1MCTJPVJD6IT9XL0I7W7E4OJZZOFK90F3S134W0S56021NB1EOEEMX55KS',
+            useMock: false, // Set to true if you want to use mock data for testing
             cacheDuration: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
         };
         
         // Cache for storing scraped weights
-        const weightCache = JSON.parse(localStorage.getItem('detroitAxleWeightCache') || '{}');
-        const cacheTimestamp = JSON.parse(localStorage.getItem('detroitAxleCacheTimestamp') || '{}');
+        let weightCache = JSON.parse(localStorage.getItem('detroitAxleWeightCache') || '{}');
+        let cacheTimestamp = JSON.parse(localStorage.getItem('detroitAxleCacheTimestamp') || '{}');
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use system preference
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('darkMode'))) {
+            document.body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun';
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                localStorage.setItem('darkMode', 'false');
+            }
+        });
         
         // Tab functionality
         document.querySelectorAll('.tab').forEach(tab => {
@@ -469,7 +472,7 @@
             newRow.innerHTML = `
                 <input type="text" class="part-number" placeholder="Part Number (e.g., ES3197)">
                 <input type="number" class="qty-input" placeholder="Qty" value="1" min="1">
-                <button class="btn btn-danger" onclick="removePartRow(this)"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-secondary" onclick="removePartRow(this)">Remove</button>
             `;
             container.appendChild(newRow);
         }
@@ -642,8 +645,7 @@
         // Scrape part weight from Detroit Axle
         async function scrapePartWeight(partNumber) {
             if (SCRAPING_CONFIG.useMock) {
-                // Mock implementation for demo purposes
-                // In a real implementation, this would call the ScrapingBee API
+                // Mock implementation for testing
                 return await mockScrapePartWeight(partNumber);
             } else {
                 // Real ScrapingBee implementation
@@ -651,15 +653,13 @@
             }
         }
         
-        // Mock scraping function (for demo without API key)
+        // Mock scraping function (for testing without API key)
         async function mockScrapePartWeight(partNumber) {
             // Simulate API delay
             await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
             
-            // Mock weight data based on part number patterns
-            // In reality, this would be scraped from the actual website
+            // Mock weight data - in reality, this would be scraped from the actual website
             const mockWeights = {
-                // Example weights based on part types
                 'ES3197': 2.1, 'ES3675': 2.3, 'ES3676': 2.3, 'ES3547': 2.2, 'ES3548': 2.2,
                 'K620071': 5.7, 'K620072': 5.7, 'K80258': 1.2, 'K80869': 1.3,
                 '512269R-WB': 8.5, 'K640293': 6.2, 'K640294': 6.2,
@@ -697,14 +697,13 @@
         
         // Extract weight from HTML content
         function extractWeightFromHTML(html, partNumber) {
-            // This is a simplified example - you'll need to inspect Detroit Axle's actual HTML structure
-            // and update these selectors accordingly
-            
-            // Common weight element patterns
+            // Look for weight in the Specifications & Details section
+            // Common patterns for weight information
             const weightPatterns = [
-                /(\d+\.?\d*)\s*lbs?/i,
-                /Weight:\s*(\d+\.?\d*)/i,
-                /Shipping Weight.*?(\d+\.?\d*)/i
+                /Weight:?\s*(\d+\.?\d*)\s*lbs?/i,
+                /Weight:?\s*(\d+\.?\d*)/i,
+                /(\d+\.?\d*)\s*lbs?\s*Weight/i,
+                /Shipping Weight:?\s*(\d+\.?\d*)/i
             ];
             
             // Try to find weight in the HTML
@@ -750,7 +749,7 @@
         // Re-scrape weights for all parts
         async function recalculateWeights() {
             const rows = document.querySelectorAll('#parts-table-body tr');
-            showNotification('warning', 'Re-scraping weights from Detroit Axle...');
+            showNotification('success', 'Re-scraping weights from Detroit Axle...');
             
             for (const row of rows) {
                 const partNumber = row.dataset.partNumber;
